@@ -47,7 +47,7 @@ export default function Note() {
         setNotes(note.notes || '');
       } catch (error) {
         console.error('Error loading note:', error);
-        alert('Failed to load note');
+        setError('Failed to load note');
         navigate('/notes');
       } finally {
         setLoading(false);
@@ -99,7 +99,7 @@ export default function Note() {
       
     } catch (error) {
       console.error('Error saving contact:', error)
-      alert('Failed to save contact')
+      setError('Failed to save contact')
     } finally {
       setSaving(false)
     }
@@ -117,7 +117,7 @@ export default function Note() {
       navigate('/notes');
     } catch (error) {
       console.error('Error deleting contact:', error);
-      alert('Failed to delete contact');
+      setError('Failed to delete contact');
     }
   }
 
@@ -134,6 +134,10 @@ export default function Note() {
 
   const handleEmailBlur = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if(email.length === 0) {
+      setError(null);
+      return;
+    }
     if (email.includes('@') && email.includes('.') && email.indexOf('@') < email.indexOf('.')) {
       setError(null);
       setEmail(email);
@@ -160,7 +164,7 @@ export default function Note() {
     <div>
       <Nav />
       <div className="canvas-note-container">
-        <h2>{isEditing ? `${existingNote?.contact_name}` : 'add new note'}</h2>
+        <h2>{isEditing ? `${existingNote?.contact_name}` : 'new note'}</h2>
         {isEditing && existingNote && (
           <div>
             <small style={{ color: '#666' }}>

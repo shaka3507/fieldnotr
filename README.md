@@ -49,21 +49,23 @@ Before running the application, you need to set up the MySQL database:
    ```
 
 ## How to run application
-- To get server started
+- To get Express server started
   - Run the following on command line: `cd server && nvm use && npm install && npm run dev`
   - Should see the following message:
-```Server is running on port 8002
-Connected to MySQL database!```
+  ```
+  Server is running on port 8002
+  Connected to MySQL database!
+  ```
   
-- To get the frontend/client started
+- To get the client React app started
   - Run the following on command line: `cd client && nvm use && npm install && npm run dev`
   - Should see the following message:
-```
-VITE v6.3.5  ready in 5119 ms
-  ➜  Local:   http://localhost:5173/
-  ➜  Network: use --host to expose
-  ➜  press h + enter to show help
-```
+  ```
+  VITE v6.3.5  ready in 5119 ms
+    ➜  Local:   http://localhost:5173/
+    ➜  Network: use --host to expose
+    ➜  press h + enter to show help
+  ```
 
 ## AI Tool Usage
 - I used Cursor + Claude-4-sonnet for basic debugging, and to give me feedback on set up the context provider, set up instructions, and to set up a script to create the table in the database for easy setup.
