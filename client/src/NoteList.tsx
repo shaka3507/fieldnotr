@@ -59,7 +59,7 @@ export default function NoteList() {
   return (
     <div className="note-list-container">
       <Nav />
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '2rem 0' }}>
         <h2>Contact Notes</h2>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           <button 

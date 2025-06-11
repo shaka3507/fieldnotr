@@ -3,16 +3,16 @@ import { useEffect, useState } from "react"
 
 const hamburgerMenuSvg = (
   <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
-    <path d="M4 18L20 18" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
-    <path d="M4 12L20 12" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
-    <path d="M4 6L20 6" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+    <path d="M4 18L20 18" stroke="#000000" strokeWidth="2" strokelineup="round"/>
+    <path d="M4 12L20 12" stroke="#000000" strokeWidth="2" strokelineup="round"/>
+    <path d="M4 6L20 6" stroke="#000000" strokeWidth="2" strokelineup="round"/>
   </svg>
 )
 
 const closeSvg = (
   <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
-    <path d="M18 6L6 18" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
-    <path d="M6 6L18 18" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+    <path d="M18 6L6 18" stroke="#000000" strokeWidth="2" strokelineup="round"/>
+    <path d="M6 6L18 18" stroke="#000000" strokeWidth="2" strokelineup="round"/>
   </svg>
 )
 
