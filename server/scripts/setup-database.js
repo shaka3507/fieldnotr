@@ -4,9 +4,7 @@ const createTables = async () => {
   try {
     const connection = await pool.getConnection();
     
-    // Drop existing tables if they exist (clean slate)
     await connection.execute('DROP TABLE IF EXISTS canvas_notes');
-    await connection.execute('DROP TABLE IF EXISTS canvas_contact');
     
     // Create simplified canvas_notes table
     await connection.execute(`

@@ -4,7 +4,7 @@ const cors = require("cors");
 const { pool, testConnection } = require('./config/database');
 
 const corsOptions = {
-  origin: true, // allow all origins when testing locally
+  origin: ['http://localhost:5173', 'http://localhost:8002'], // allow all origins when testing locally
 };
 
 const app = express();
@@ -29,7 +29,6 @@ app.get("/api/notes", async (req, res) => {
     );
     
     connection.release();
-    
     res.json(rows);
     
   } catch (error) {
