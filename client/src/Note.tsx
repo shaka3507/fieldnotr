@@ -140,7 +140,11 @@ export default function Note() {
     } else {
       setError('Please enter a valid email address');
     }
-    
+  }
+
+  const handleBack = () => {
+    handleSave();
+    navigate('/notes');
   }
 
   if (loading) {
@@ -156,7 +160,7 @@ export default function Note() {
     <div>
       <Nav />
       <div className="canvas-note-container">
-        <h2>{isEditing ? `update note for contact: ${existingNote?.contact_name}` : 'add new note'}</h2>
+        <h2>{isEditing ? `${existingNote?.contact_name}` : 'add new note'}</h2>
         {isEditing && existingNote && (
           <div>
             <small style={{ color: '#666' }}>
@@ -245,7 +249,7 @@ export default function Note() {
           )}
           
           <button 
-            onClick={() => navigate('/notes')}
+            onClick={handleBack}
           >
             back
           </button>
