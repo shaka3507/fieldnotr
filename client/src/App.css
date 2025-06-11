@@ -2,6 +2,7 @@
   padding: 2rem;
   text-align: center;
   width: 100%;
+  font-family: 'Lato', sans-serif;
 }
 
 .add-new-contact-button {
@@ -16,12 +17,29 @@
   color: black;
 }
 
+.mobile-nav-close {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-bottom: 1px solid black;
+}
+
+.mobile-nav-open {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid black;
+}
+
 nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 0.5rem;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid black;
   position: fixed;
   top: 0;
   left: 0;
@@ -31,8 +49,11 @@ nav {
     color: inherit;
   }
   > a:hover {
-    color: white;
+    color: black;
     text-decoration: underline;
+  }
+  > h1 {
+    font-size: 1rem;
   }
 }
 
@@ -51,6 +72,13 @@ nav {
     font-size: 16px;
     text-transform: uppercase;
   }
+}
+
+.search-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 0px;
 }
 
 .canvas-note-container {

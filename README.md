@@ -11,8 +11,8 @@
 - [x] JSON API
 - [x] Email validation
 - [x] Editing and deleting canvas notes
-- [ ] Mobile friendly
-- [ ] Modern UI
+- [x] Mobile friendly
+- [x] Modern UI
 - [ ] Possible to export results as CSV
 
 
