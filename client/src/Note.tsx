@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
+import type { ChangeEvent, FormEvent } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import axios from "axios"
+import { useNotes } from "./contexts/NotesContext"
 import Nav from "./Nav"
 
 interface CanvasNote {
@@ -15,6 +17,7 @@ interface CanvasNote {
 export default function Note() {
   const [searchParams] = useSearchParams();
   const noteId = searchParams.get('id');
+  const { fetchNotes } = useNotes();
   const [contactName, setContactName] = useState("")
   const [email, setEmail] = useState("")
   const [notes, setNotes] = useState("")
@@ -23,6 +26,7 @@ export default function Note() {
   const [existingNote, setExistingNote] = useState<CanvasNote | null>(null)
   const [lastSavedNoteId, setLastSavedNoteId] = useState<number | null>(null)
   const [lastSavedNoteName, setLastSavedNoteName] = useState<string>("")
+  const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
 
   const isEditing = !!noteId;
@@ -55,7 +59,7 @@ export default function Note() {
 
   const handleSave = async () => {
     if (!contactName.trim()) {
-      alert('Contact name is required')
+      setError('Contact name is required')
       return
     }
 
@@ -70,6 +74,7 @@ export default function Note() {
           notes: notes
         });
         alert('Contact updated successfully!');
+        await fetchNotes(); // Refresh the notes list
         navigate('/notes');
       } else {
         // Create new note
@@ -80,6 +85,7 @@ export default function Note() {
         });
         
         alert('Contact saved successfully!');
+        await fetchNotes(); // Refresh the notes list
         
         // Store the last saved note info
         setLastSavedNoteId(response.data.data.id);
@@ -107,6 +113,7 @@ export default function Note() {
     try {
       await axios.delete(`http://localhost:8002/api/notes/${existingNote.id}`);
       alert('Contact deleted successfully!');
+      await fetchNotes(); // Refresh the notes list
       navigate('/notes');
     } catch (error) {
       console.error('Error deleting contact:', error);
@@ -120,6 +127,22 @@ export default function Note() {
     }
   };
 
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log('email changed', e.target.value);
+    setEmail(e.target.value);
+  };
+
+  const handleEmailBlur = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (email.includes('@') && email.includes('.') && email.indexOf('@') < email.indexOf('.')) {
+      setError(null);
+      setEmail(email);
+    } else {
+      setError('Please enter a valid email address');
+    }
+    
+  }
+
   if (loading) {
     return (
       <div>
@@ -132,7 +155,6 @@ export default function Note() {
   return (
     <div>
       <Nav />
-      
       <div className="canvas-note-container">
         <h2>{isEditing ? `update note for contact: ${existingNote?.contact_name}` : 'add new note'}</h2>
         {isEditing && existingNote && (
@@ -145,6 +167,10 @@ export default function Note() {
             </small>
           </div>
         )}
+
+<div>
+      {error && <p style={{ color: 'red', marginBottom: '0.5rem' }}>{error}</p>}
+      </div>
         
         {!isEditing && lastSavedNoteId && (
           <div style={{ marginBottom: '1rem', padding: '0.75rem', backgroundColor: '', borderRadius: '4px', border: '1px solid #28a745' }}>
@@ -182,7 +208,8 @@ export default function Note() {
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
+            onBlur={(e) => handleEmailBlur(e as any)}
             placeholder="Enter their email..."
             style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem' }}
           />

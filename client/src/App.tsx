@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom"
 import './App.css'
 import NoteList from './NoteList'
 import Note from './Note'
-import { ContactsProvider } from './contexts/ContactsContext'
+import { NotesProvider } from './contexts/NotesContext'
 import Nav from './Nav'
 
 function Home() {
@@ -23,7 +23,7 @@ function Home() {
 function App() {
   return (
     <Router>
-      <ContactsProvider>
+      <NotesProvider>
         <div>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -31,7 +31,7 @@ function App() {
             <Route path="/note" element={<Note />} />
           </Routes>
         </div>
-      </ContactsProvider>
+      </NotesProvider>
     </Router>
   )
 }

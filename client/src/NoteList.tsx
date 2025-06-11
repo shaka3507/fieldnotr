@@ -1,53 +1,10 @@
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useNotes } from './contexts/NotesContext';
 import Nav from './Nav';
 
-interface CanvasNote {
-  id: number;
-  contact_name: string;
-  email: string | null;
-  notes: string;
-  last_updated: string;
-  created_at: string;
-}
-
 export default function NoteList() {
-  const [notes, setNotes] = useState<CanvasNote[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { notes, loading, error } = useNotes();
   const navigate = useNavigate();
-
-  const fetchNotes = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await axios.get('http://localhost:8002/api/notes');
-      setNotes(response.data);
-    } catch (err) {
-      console.error('Error fetching notes:', err);
-      setError('Failed to fetch notes');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchNotes();
-  }, []);
-
-  const handleDelete = async (noteId: number) => {
-    if (!confirm('Are you sure you want to delete this note?')) return;
-
-    try {
-      await axios.delete(`http://localhost:8002/api/notes/${noteId}`);
-      setNotes(notes.filter(note => note.id !== noteId));
-      alert('Note deleted successfully');
-    } catch (error) {
-      console.error('Error deleting note:', error);
-      alert('Failed to delete note');
-    }
-  };
 
   if (loading) return <div>Loading your notes...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -57,12 +14,14 @@ export default function NoteList() {
       <Nav />
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
         <h2>Contact Notes</h2>
-        <button 
-          onClick={() => navigate('/note')}
-          className="add-new-contact-button"
-        >
-          Add New Contact
-        </button>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button 
+            onClick={() => navigate('/note')}
+            className="add-new-contact-button"
+          >
+            Add New Contact
+          </button>
+        </div>
       </div>
 
       {notes.length > 0 && (
